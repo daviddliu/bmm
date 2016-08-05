@@ -1573,8 +1573,8 @@ binomial.bmm.fixed.num.components <- function(X, eta, N.c, r, a, b, alpha, a0, b
     
     # Calculate a_km
     # Calculate b_km
-    a <- ( a0 - 1 ) + Nk.xbar
-    b <- ( b0 - 1 ) + Nk.etabar - Nk.xbar
+    a <- ( a0 - 1 ) + Nk.xbar + 1e-12
+    b <- ( b0 - 1 ) + Nk.etabar - Nk.xbar + 1e-12
     if (any(is.na(a))) {
       print(a)
       stop("a is NA")
@@ -1585,16 +1585,16 @@ binomial.bmm.fixed.num.components <- function(X, eta, N.c, r, a, b, alpha, a0, b
       stop("b is NA")
     } 
 
-    if ( any(a <= 0) ) {
+    if ( any(a < 0) ) {
       print(a)
       #print(Nk.xbar)
       #print(r)
       print(alpha/sum(alpha))
-      stop("a <= 0")
+      stop("a < 0")
     }
 
-    if ( any(b <= 0) ) {
-      stop("b <= 0")
+    if ( any(b < 0) ) {
+      stop("b < 0")
     }
 
     if ( any(alpha < 0) ) {
